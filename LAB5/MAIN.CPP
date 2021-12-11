@@ -5,46 +5,48 @@ using namespace std;
 class Node
 {
 	public:
-	int leftval;
-	int rightval;
-	int temp;
-	Node *left;
-	Node *middle;
-	Node *right;
-	int height;
+    int size;
+	int key[3];
+	Node *first;
+	Node *second;
+	Node *third;
+	Node *fourth;
+
 };
 
-
-Node* newNode(int dest,int key)
+Node* create(Node* node,i)
+void swap(Node* node, int key, int value)
 {
-	Node* node = new Node();
-	dest = key;
-//	cout<<"value of newnode, leftval"<<node->leftval;
-//	cout<<"\n value of right val "<<node->rightval;
-	node->left = NULL;
-	node->middle= NULL;
-	node->right = NULL;
-	
-	return(node);
-}
-void swap(Node* node, int leftval, int key)
-{
-    node->rightval=node->leftval;
-    node->leftval=key;
+    node->key[1]=node->key[0];
+    node->key[0]=value;
 }
 
-Node* insert(Node* node, int key)
+Node* insert(Node* node, int value)
 {
-	
+
 	if (node == NULL)
-		return(newNode(node->leftval,key));
+    {
+        Node* node = new Node();
+        node->key[0]=value;
+        node->first = NULL;
+        node->second= NULL;
+        node->third = NULL;
+        return node;
+    }
 
-	if (key < node->leftval)
-	    swap(node,node->leftval,key);
-		
-	else if (key > node->leftval)
-		return(newNode(node->rightval,key));
-	else 
+
+	if (value < node->key[0])//case 1
+	    swap(node,node->key[0],value);
+
+	else if (value > node->key[0])// case 2
+		{
+        node->key[1]=value;
+        node->first = NULL;
+        node->second= NULL;
+        node->third = NULL;
+        return node;
+    }
+	else
 		return node;
 
 
@@ -54,15 +56,19 @@ Node* insert(Node* node, int key)
 
 void display(Node *root)
 {
-// 	if(root != NULL)
-// 	{
-// 		cout << root->leftval << " ";
-// 		cout << root->rightval << " ";
-		
-// 		display(root->left);
-// 		display(root->middle);
-// 		display(root->right);
-// 	}
+ 	if(root != NULL)
+ 	{
+		for(int i=0;i<3;i++)
+        {
+            cout <<root->key[i] << " ";
+        }
+
+
+
+ 		display(root->first);
+ 		display(root->second);
+ 		display(root->third);
+  	}
 }
 
 
@@ -71,14 +77,12 @@ int main()
 	Node *root = NULL;
 	root = insert(root, 1);
 	root = insert(root, 2);
-// 	root = insert(root, 3);
-// 	root = insert(root, 4);
-// 	root = insert(root, 5);
-// 	root = insert(root, 6);
-	
-	
+	root = insert(root, 3);
+
+
+
 	cout << "displalying  tree is \n";
-	//display(root);
-	
+	display(root);
+
 	return 0;
 }
